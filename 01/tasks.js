@@ -5,21 +5,19 @@
  * '1 и 6.45, -2, но 8, а затем 15, то есть 2.7 и -1028' => { min: -1028, max: 15 }
  */
 function getMinMax(string) {
-  let min = Infinity, max = -Infinity, x;
-  let sep = /;?,?\s+/;
+  let min = Infinity;
+  let max = -Infinity;
+  const sep = /;?,?\s+/;
   const arr = string.split(sep);
   const len = arr.length;
 
   for (let i = 0; i < len; i++) {
-    //console.log(arr[i]);
-    if (isNaN(arr[i])) {
-      continue;
-    } else {
+    if (!isNaN(arr[i])) {
       min = Math.min(min, arr[i]);
       max = Math.max(max, arr[i]);
     }
   }
-  return {max: max, min: min};
+  return { max, min };
 }
 
 /* ============================================= */
@@ -30,11 +28,8 @@ function getMinMax(string) {
  * @return {number} число под номером х
  */
 function fibonacciSimple(x) {
-  if (x === 0) {
-    return 0;
-  }
-  if (x === 1) {
-    return 1;
+  if (x === 0 || x === 1) {
+    return x;
   }
   return fibonacciSimple(x - 1) + fibonacciSimple(x - 2);
 }
@@ -47,7 +42,7 @@ function fibonacciSimple(x) {
  * @param {number} x номер числа
  * @return {number} число под номером х
  */
-const cache = { 0: 0, 1: 1};
+const cache = { 0: 0, 1: 1 };
 
 function fibonacciWithCache(x) {
   if (x in cache) {
@@ -82,6 +77,7 @@ function printNumbers(max, cols) {
 
   for (let i = 0; i < len; i++) {
     let num = i;
+
     for (let j = 0; j < cols; j++) {
       if (num > max) {
         break;
@@ -108,11 +104,14 @@ function printNumbers(max, cols) {
  * @return {string}
  */
 function rle(input) {
-  let symbol, output = '', i = 0, count;
+  let symbol;
+  let output = '';
+  let i = 0;
   const len = input.length;
 
   while (i !== len) {
-    count = 1;
+    let count = 1;
+
     symbol = input[i];
     i += 1;
     while (symbol === input[i]) {

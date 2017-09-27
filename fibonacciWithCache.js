@@ -1,4 +1,4 @@
-const cache = { 0: 0, 1: 1};
+const cache = { 0: 0, 1: 1 };
 
 function fibonacciWithCache(x) {
   if (x in cache) {

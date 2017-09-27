@@ -1,17 +1,15 @@
-function getMinMax(str) {
-  let min = Infinity, max = -Infinity, x;
-  let sep = /;?,?\s+/;
-  const arr = str.split(sep);
+function getMinMax(string) {
+  let min = Infinity;
+  let max = -Infinity;
+  const sep = /;?,?\s+/;
+  const arr = string.split(sep);
   const len = arr.length;
 
   for (let i = 0; i < len; i++) {
-    //console.log(arr[i]);
-    if (isNaN(arr[i])) {
-      continue;
-    } else {
+    if (!isNaN(arr[i])) {
       min = Math.min(min, arr[i]);
       max = Math.max(max, arr[i]);
     }
   }
-  return {max: max, min: min};
+  return { max, min };
 }

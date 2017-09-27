@@ -1,9 +1,12 @@
 function rle(input) {
-  let symbol, output = '', i = 0, count;
+  let symbol;
+  let output = '';
+  let i = 0;
   const len = input.length;
 
   while (i !== len) {
-    count = 1;
+    let count = 1;
+
     symbol = input[i];
     i += 1;
     while (symbol === input[i]) {
