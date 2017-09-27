@@ -1,18 +1,20 @@
 function rle(input) {
-  let ch, output = "", i = 0, l = input.length, count;
-  while (i !== l) {
+  let symbol, output = '', i = 0, count;
+  const len = input.length;
+
+  while (i !== len) {
     count = 1;
-    ch = input[i];
+    symbol = input[i];
     i += 1;
-    while (ch === input[i]) {
+    while (symbol === input[i]) {
       count += 1;
       i += 1;
     }
     if (count === 1) {
-      output += ch;
+      output += symbol;
     } else {
-      output += ch + count;
+      output += symbol + count;
     }
   }
-  return (output);
+  return output;
 }

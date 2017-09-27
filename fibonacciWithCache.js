@@ -1,12 +1,8 @@
-let cache = {};
+const cache = { 0: 0, 1: 1};
 
 function fibonacciWithCache(x) {
   if (x in cache) {
     return cache[x];
-  }
-  if (x === 0 || x === 1) {
-    cache[x] = x;
-    return x;
   }
   const num = fibonacciWithCache(x - 2) + fibonacciWithCache(x - 1);
 

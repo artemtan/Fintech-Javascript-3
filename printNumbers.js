@@ -1,18 +1,24 @@
 function printNumbers(max, cols) {
-  let i = 0;
+  let str = '';
+  const len = Math.ceil((max + 1) / cols);
 
-  while (i <= max) {
-    let str = '', j = 0;
+  for (let i = 0; i < len; i++) {
+    let num = i;
 
-    while (j++ < cols && i <= max) {
-      if (i / 10 < 1) {
-        str += ' ' + ${i} + ' ';
-        i += 1;
-      } else {
-        str += ${i} + ' ';
-        i += 1;
+    for (let j = 0; j < cols; j++) {
+      if (num > max) {
+        break;
       }
+      if (num < 10) {
+        str += ' ' + num + ' ';
+      } else {
+        str += num + ' ';
+      }
+      num += len;
     }
-    console.log(str);
+    str = str.slice(0, -1);
+    str += '\n';
   }
+  str = str.slice(0, -1);
+  return str;
 }

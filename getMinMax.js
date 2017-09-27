@@ -1,14 +1,14 @@
 function getMinMax(str) {
   let min = Infinity, max = -Infinity, x;
 
-  while (str !== '') {
-    while (isNaN(parseFloat(str[0])) && str[0] !== '-') {
-      str = str.slice(1);
+  while (string !== '') {
+    while (isNaN(parseFloat(string[0])) && string[0] !== '-') {
+      string = string.slice(1);
     }
-    if (str === '') {
+    if (string === '') {
       break;
     }
-    x = parseFloat(str);
+    x = parseFloat(string);
     if (x > max) {
       max = x;
     }
@@ -16,7 +16,7 @@ function getMinMax(str) {
       min = x;
     }
     x += '';
-    str = str.slice(x.length);
+    string = string.slice(x.length);
   }
   return {max: max, min: min};
 }

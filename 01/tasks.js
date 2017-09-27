@@ -16,7 +16,13 @@ function getMinMax(string) {
  * @return {number} число под номером х
  */
 function fibonacciSimple(x) {
-  return x;
+  if (x === 0) {
+    return 0;
+  }
+  if (x === 1) {
+    return 1;
+  }
+  return fibonacciSimple(x - 1) + fibonacciSimple(x - 2);
 }
 
 /* ============================================= */
@@ -27,8 +33,16 @@ function fibonacciSimple(x) {
  * @param {number} x номер числа
  * @return {number} число под номером х
  */
+const cache = { 0: 0, 1: 1};
+
 function fibonacciWithCache(x) {
-  return x;
+  if (x in cache) {
+    return cache[x];
+  }
+  const num = fibonacciWithCache(x - 2) + fibonacciWithCache(x - 1);
+
+  cache[x] = num;
+  return num;
 }
 
 /* ============================================= */
@@ -49,7 +63,27 @@ function fibonacciWithCache(x) {
  * @return {string}
  */
 function printNumbers(max, cols) {
+  let str = '';
+  const len = Math.ceil((max + 1) / cols);
 
+  for (let i = 0; i < len; i++) {
+    let num = i;
+    for (let j = 0; j < cols; j++) {
+      if (num > max) {
+        break;
+      }
+      if (num < 10) {
+        str += ' ' + num + ' ';
+      } else {
+        str += num + ' ';
+      }
+      num += len;
+    }
+    str = str.slice(0, -1);
+    str += '\n';
+  }
+  str = str.slice(0, -1);
+  return str;
 }
 
 /* ============================================= */
@@ -60,7 +94,24 @@ function printNumbers(max, cols) {
  * @return {string}
  */
 function rle(input) {
+  let symbol, output = '', i = 0, count;
+  const len = input.length;
 
+  while (i !== len) {
+    count = 1;
+    symbol = input[i];
+    i += 1;
+    while (symbol === input[i]) {
+      count += 1;
+      i += 1;
+    }
+    if (count === 1) {
+      output += symbol;
+    } else {
+      output += symbol + count;
+    }
+  }
+  return output;
 }
 
 module.exports = {

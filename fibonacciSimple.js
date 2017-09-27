@@ -5,5 +5,5 @@ function fibonacciSimple(x) {
   if (x === 1) {
     return 1;
   }
-  return (fibonacciSimple(x - 1) + fibonacciSimple(x - 2));
+  return fibonacciSimple(x - 1) + fibonacciSimple(x - 2);
 }
