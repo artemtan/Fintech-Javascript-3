@@ -5,7 +5,21 @@
  * '1 и 6.45, -2, но 8, а затем 15, то есть 2.7 и -1028' => { min: -1028, max: 15 }
  */
 function getMinMax(string) {
+  let min = Infinity, max = -Infinity, x;
+  let sep = /;?,?\s+/;
+  const arr = string.split(sep);
+  const len = arr.length;
 
+  for (let i = 0; i < len; i++) {
+    //console.log(arr[i]);
+    if (isNaN(arr[i])) {
+      continue;
+    } else {
+      min = Math.min(min, arr[i]);
+      max = Math.max(max, arr[i]);
+    }
+  }
+  return {max: max, min: min};
 }
 
 /* ============================================= */
