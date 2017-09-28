@@ -8,10 +8,10 @@ function rle(input) {
     let count = 1;
 
     symbol = input[i];
-    i += 1;
+    i++;
     while (symbol === input[i]) {
-      count += 1;
-      i += 1;
+      count++;
+      i++;
     }
     if (count === 1) {
       output += symbol;
