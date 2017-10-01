@@ -5,7 +5,19 @@
  * '1 и 6.45, -2, но 8, а затем 15, то есть 2.7 и -1028' => { min: -1028, max: 15 }
  */
 function getMinMax(string) {
+  let min = Infinity;
+  let max = -Infinity;
+  const sep = /;?,?\s+/;
+  const arr = string.split(sep);
+  const len = arr.length;
 
+  for (let i = 0; i < len; i++) {
+    if (!isNaN(arr[i])) {
+      min = Math.min(min, arr[i]);
+      max = Math.max(max, arr[i]);
+    }
+  }
+  return { max, min };
 }
 
 /* ============================================= */
@@ -16,7 +28,10 @@ function getMinMax(string) {
  * @return {number} число под номером х
  */
 function fibonacciSimple(x) {
-  return x;
+  if (x === 0 || x === 1) {
+    return x;
+  }
+  return fibonacciSimple(x - 1) + fibonacciSimple(x - 2);
 }
 
 /* ============================================= */
@@ -27,8 +42,16 @@ function fibonacciSimple(x) {
  * @param {number} x номер числа
  * @return {number} число под номером х
  */
+const cache = { 0: 0, 1: 1 };
+
 function fibonacciWithCache(x) {
-  return x;
+  if (x in cache) {
+    return cache[x];
+  }
+  const num = fibonacciWithCache(x - 2) + fibonacciWithCache(x - 1);
+
+  cache[x] = num;
+  return num;
 }
 
 /* ============================================= */
@@ -49,7 +72,28 @@ function fibonacciWithCache(x) {
  * @return {string}
  */
 function printNumbers(max, cols) {
+  let str = '';
+  const len = Math.ceil((max + 1) / cols);
 
+  for (let i = 0; i < len; i++) {
+    let num = i;
+
+    for (let j = 0; j < cols; j++) {
+      if (num > max) {
+        break;
+      }
+      if (num < 10) {
+        str += ' ' + num + ' ';
+      } else {
+        str += num + ' ';
+      }
+      num += len;
+    }
+    str = str.slice(0, -1);
+    str += '\n';
+  }
+  str = str.slice(0, -1);
+  return str;
 }
 
 /* ============================================= */
@@ -60,7 +104,27 @@ function printNumbers(max, cols) {
  * @return {string}
  */
 function rle(input) {
+  let symbol;
+  let output = '';
+  let i = 0;
+  const len = input.length;
 
+  while (i !== len) {
+    let count = 1;
+
+    symbol = input[i];
+    i++;
+    while (symbol === input[i]) {
+      count++;
+      i++;
+    }
+    if (count === 1) {
+      output += symbol;
+    } else {
+      output += symbol + count;
+    }
+  }
+  return output;
 }
 
 module.exports = {
