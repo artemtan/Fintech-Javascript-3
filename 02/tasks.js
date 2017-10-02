@@ -3,12 +3,21 @@
  * Доп. задание: предложите несколько вариантов решения.
  */
 function timer(logger = console.log) {
+  for (let i = 0; i < 10; i++) {
+    setTimeout((function(num) { logger(num); }), 100, i);
+  }
+}
+
+/*
+function timer(logger = console.log) {
   for (var i = 0; i < 10; i++) {
+    let tmp = i;
     setTimeout(() => {
-      logger(i);
+      logger(tmp);
     }, 100);
   }
 }
+*/
 
 /*= ============================================ */
 
@@ -20,7 +29,10 @@ function timer(logger = console.log) {
  * @return {Function} функция с нужным контекстом
  */
 function customBind(func, context, ...args) {
-
+  function newFunc(...newArgs) {
+    return func.apply(context, args.concat(newArgs));
+  }
+  return newFunc;
 }
 
 /*= ============================================ */
@@ -33,7 +45,19 @@ function customBind(func, context, ...args) {
  * sum :: void -> Number
  */
 function sum(x) {
-  return 0;
+  if (x === undefined) {
+    return 0;
+  }
+  let curSum = x;
+
+  function newSum(y) {
+    if (y === undefined) {
+      return curSum;
+    }
+    curSum += y;
+    return newSum;
+  }
+  return newSum;
 }
 
 /*= ============================================ */
@@ -45,7 +69,10 @@ function sum(x) {
  * @return {boolean}
  */
 function anagram(first, second) {
-  return false;
+  const firstWord = first.split('').sort();
+  const secondWord = second.split('').sort();
+
+  return firstWord.length === secondWord.length && firstWord.every((letter, i) => letter === secondWord[i]);
 }
 
 /*= ============================================ */
@@ -57,7 +84,14 @@ function anagram(first, second) {
  * @return {Array<number>} массив уникальных значений, отсортированный по возрастанию
  */
 function getUnique(arr) {
-  return [];
+  arr.sort();
+  for (let i = 1; i < arr.length; i++) {
+    if (arr[i] === arr[i - 1]) {
+      arr.splice(i, 1);
+      i--;
+    }
+  }
+  return arr;
 }
 
 /**
@@ -67,7 +101,19 @@ function getUnique(arr) {
  * @return {Array<number>} массив уникальных значений, отсортированный по возрастанию
  */
 function getIntersection(first, second) {
-  return [];
+  function compare(x, y) {
+    return x - y;
+  }
+
+  const ans = [];
+
+  for (let i = 0; i < first.length; i++) {
+    if (second.indexOf(first[i]) !== -1) {
+      ans.push(first[i]);
+    }
+  }
+  ans.sort(compare);
+  return ans;
 }
 
 /* ============================================= */
@@ -86,7 +132,10 @@ function getIntersection(first, second) {
  * @return {boolean}
  */
 function isIsomorphic(left, right) {
+  const l = left.split('');
+  const r = right.split('');
 
+  return left.length === right.length && (l.reduce((total, current, i) => (total += !(current === r[i])), 0) <= 1);
 }
 
 module.exports = {
