@@ -69,10 +69,27 @@ function sum(x) {
  * @return {boolean}
  */
 function anagram(first, second) {
-  const firstWord = first.split('').sort();
-  const secondWord = second.split('').sort();
+  if (first.length !== second.length) {
+    return false;
+  }
 
-  return firstWord.length === secondWord.length && firstWord.every((letter, i) => letter === secondWord[i]);
+  const letters = {};
+
+  for (const index of first) {
+    if (letters[index]) {
+      letters[index]++;
+    } else {
+      letters[index] = 1;
+    }
+  }
+
+  for (const index of second) {
+    if (!letters[index]) {
+      return false;
+    }
+    letters[index]--;
+  }
+  return true;
 }
 
 /*= ============================================ */
@@ -84,14 +101,12 @@ function anagram(first, second) {
  * @return {Array<number>} массив уникальных значений, отсортированный по возрастанию
  */
 function getUnique(arr) {
-  arr.sort();
-  for (let i = 1; i < arr.length; i++) {
-    if (arr[i] === arr[i - 1]) {
-      arr.splice(i, 1);
-      i--;
-    }
+  const answer = {};
+
+  for (const index of arr) {
+    answer[index] = index;
   }
-  return arr;
+  return Object.keys(answer).map(Number);
 }
 
 /**
@@ -101,19 +116,29 @@ function getUnique(arr) {
  * @return {Array<number>} массив уникальных значений, отсортированный по возрастанию
  */
 function getIntersection(first, second) {
-  function compare(x, y) {
-    return x - y;
-  }
+  const tmpArray = {};
+  const result = [];
 
-  const ans = [];
-
-  for (let i = 0; i < first.length; i++) {
-    if (second.indexOf(first[i]) !== -1) {
-      ans.push(first[i]);
+  for (const index of first) {
+    if (tmpArray[index]) {
+      tmpArray[index]++;
+    } else {
+      tmpArray[index] = 1;
     }
   }
-  ans.sort(compare);
-  return ans;
+
+  for (const index of second) {
+    if (tmpArray[index]) {
+      tmpArray[index]++;
+    }
+  }
+
+  for (const key in tmpArray) {
+    for (let i = 0; i < Math.floor(tmpArray[key] / 2); i++) {
+      result.push(Number(key));
+    }
+  }
+  return result;
 }
 
 /* ============================================= */
@@ -132,10 +157,20 @@ function getIntersection(first, second) {
  * @return {boolean}
  */
 function isIsomorphic(left, right) {
-  const l = left.split('');
-  const r = right.split('');
+  if (left.length !== right.length) {
+    return false;
+  }
+  let diff = false;
 
-  return left.length === right.length && (l.reduce((total, current, i) => (total += !(current === r[i])), 0) <= 1);
+  for (const i in left) {
+    if (left[i] !== right[i]) {
+      if (diff) {
+        return false;
+      }
+      diff = true;
+    }
+  }
+  return true;
 }
 
 module.exports = {
