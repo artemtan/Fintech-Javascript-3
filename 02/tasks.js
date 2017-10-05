@@ -48,16 +48,7 @@ function sum(x) {
   if (x === undefined) {
     return 0;
   }
-  let curSum = x;
-
-  function newSum(y) {
-    if (y === undefined) {
-      return curSum;
-    }
-    curSum += y;
-    return newSum;
-  }
-  return newSum;
+  return function newSum(y) { return y !== undefined ? sum(x + y) : x; };
 }
 
 /*= ============================================ */
