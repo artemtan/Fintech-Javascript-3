@@ -16,8 +16,10 @@ function rejectOnTimeout(promise, timeoutInMilliseconds) {
     promise.then(result => {
       clearTimeout(timerID);
       resolve(result);
-    }, reject);
+    }, error => {
+      clearTimeout(timerID);
+      reject(error);
+    });
   });
 }
-
 module.exports = rejectOnTimeout;
