@@ -22,4 +22,5 @@ function rejectOnTimeout(promise, timeoutInMilliseconds) {
     });
   });
 }
+
 module.exports = rejectOnTimeout;
