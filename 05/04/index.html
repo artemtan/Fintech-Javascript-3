@@ -1,18 +1,54 @@
 <!DOCTYPE HTML>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<html lang = "ru">
+  <head>
+    <meta charset = "utf-8">
+    <link rel = "stylesheet" href = "style4.css">
+    <link rel = "stylesheet" href = "https://fonts.googleapis.com/css?family=Roboto:100,200,300|Roboto+Condensed">
+    <link rel = "stylesheet" href = "https://necolas.github.io/normalize.css/7.0.0/normalize.css">
     <title>Задание 5.4</title>
-</head>
-<body>
-<h1>Сверстать форму. Pixel-perfect. Select делать не нужно</h1>
-<p>
-    Подробности по ссылке:
-    <a href="https://app.zeplin.io/project/58a307271a9f6d513890adc8/screen/58a3075a4ec334e848d7f333">
-        https://app.zeplin.io/project/58a307271a9f6d513890adc8/screen/58a3075a4ec334e848d7f333
-    </a>, для того чтобы получить доступ, нужно зарегестрироваться на
-    <a href="https://zeplin.io/">zeplin.io</a>, и попросить доступ у Евгения Мамаева.
-</p>
-<img src="./task.png" alt="">
-</body>
+  </head>
+  <body>
+    <div class = "container">
+      <form class = "form">
+          <div class = "field-container">
+            <input id = "name" type = "text" required class = "input-field">
+            <label for = "name" class = "field-lable">ФИО</label>
+          </div>
+          <div class = "field-container bad-container">
+            <input type id = "city" = "text" required class = "input-field bad-input">
+            <label for = "city" class = "field-lable bad-lable">Город проживания</label>
+            <div class = "exclamation"></div>
+          </div>
+          <div class = "warning">Для заполнения этого поля не допустимо использовать буквы латинского алфавита</div>
+          <div class = "field-container">
+            <input id = "mobile" type = "text" required class = "input-field">
+            <label for = "mobile" class = "field-lable">Мобильный телефон</label>
+          </div>
+          <div class = "field-container">
+            <input id = "mail" type = "text" required class = "input-field">
+            <label for = "mail" class = "field-lable">Электронная почта</label>
+            <div class = "question">
+              <span class = "question-text">Ваши данные замаскированы в целях безопасности. Для изменения информации с вами свяжется оператор колл-центра.</span>
+            </div>
+          </div>
+        <h2 class = "choice-header">Выберите это или другое</h2>
+        <div class = "choice">
+            <label class = "choice-label">
+              <input type = "radio" class = "choice-input" name = "choice-radio" checked>
+              <span class = "mark"></span>
+              <span class = "first-option">Это</span>
+            </label>
+            <label class = "choice-label">
+              <input type = "radio" class = "choice-input" name = "choice-radio">
+              <span class = "mark"></span>
+              <span class = "second-option">Другое</span>
+            </label>
+        </div>
+        
+        <div class = "button-container">
+          <button class = "submit-button" type = "submit">Отправить</button>
+        </div>
+      </form>
+    </div>
+  </body>
 </html>
