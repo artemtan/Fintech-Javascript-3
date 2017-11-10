@@ -3,7 +3,20 @@
  * Доп. задание: предложите несколько вариантов решения.
  */
 function throttle(time, callback) {
-  return callback;
+  let called = false;
+
+  function callbackNew(...args) {
+    if (called) {
+      return;
+    }
+    callback(args);
+    called = true;
+    setTimeout(function() {
+      called = false;
+    }, time);
+  }
+
+  return callbackNew;
 }
 
 
