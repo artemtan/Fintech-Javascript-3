@@ -3,12 +3,21 @@
  * Доп. задание: предложите несколько вариантов решения.
  */
 function timer(logger = console.log) {
+  for (let i = 0; i < 10; i++) {
+    setTimeout((function(num) { logger(num); }), 100, i);
+  }
+}
+
+/*
+function timer(logger = console.log) {
   for (var i = 0; i < 10; i++) {
+    let tmp = i;
     setTimeout(() => {
-      logger(i);
+      logger(tmp);
     }, 100);
   }
 }
+*/
 
 /*= ============================================ */
 
@@ -20,7 +29,10 @@ function timer(logger = console.log) {
  * @return {Function} функция с нужным контекстом
  */
 function customBind(func, context, ...args) {
-
+  function newFunc(...newArgs) {
+    return func.apply(context, args.concat(newArgs));
+  }
+  return newFunc;
 }
 
 /*= ============================================ */
@@ -33,7 +45,10 @@ function customBind(func, context, ...args) {
  * sum :: void -> Number
  */
 function sum(x) {
-  return 0;
+  if (x === undefined) {
+    return 0;
+  }
+  return function newSum(y) { return y !== undefined ? sum(x + y) : x; };
 }
 
 /*= ============================================ */
@@ -45,7 +60,27 @@ function sum(x) {
  * @return {boolean}
  */
 function anagram(first, second) {
-  return false;
+  if (first.length !== second.length) {
+    return false;
+  }
+
+  const letters = {};
+
+  for (const index of first) {
+    if (letters[index]) {
+      letters[index]++;
+    } else {
+      letters[index] = 1;
+    }
+  }
+
+  for (const index of second) {
+    if (!letters[index]) {
+      return false;
+    }
+    letters[index]--;
+  }
+  return true;
 }
 
 /*= ============================================ */
@@ -57,7 +92,12 @@ function anagram(first, second) {
  * @return {Array<number>} массив уникальных значений, отсортированный по возрастанию
  */
 function getUnique(arr) {
-  return [];
+  const answer = {};
+
+  for (const index of arr) {
+    answer[index] = index;
+  }
+  return Object.keys(answer).map(Number);
 }
 
 /**
@@ -67,7 +107,29 @@ function getUnique(arr) {
  * @return {Array<number>} массив уникальных значений, отсортированный по возрастанию
  */
 function getIntersection(first, second) {
-  return [];
+  const tmpArray = {};
+  const result = [];
+
+  for (const index of first) {
+    if (tmpArray[index]) {
+      tmpArray[index]++;
+    } else {
+      tmpArray[index] = 1;
+    }
+  }
+
+  for (const index of second) {
+    if (tmpArray[index]) {
+      tmpArray[index]++;
+    }
+  }
+
+  for (const key in tmpArray) {
+    for (let i = 0; i < Math.floor(tmpArray[key] / 2); i++) {
+      result.push(Number(key));
+    }
+  }
+  return result;
 }
 
 /* ============================================= */
@@ -86,7 +148,20 @@ function getIntersection(first, second) {
  * @return {boolean}
  */
 function isIsomorphic(left, right) {
+  if (left.length !== right.length) {
+    return false;
+  }
+  let diff = false;
 
+  for (const i in left) {
+    if (left[i] !== right[i]) {
+      if (diff) {
+        return false;
+      }
+      diff = true;
+    }
+  }
+  return true;
 }
 
 module.exports = {
